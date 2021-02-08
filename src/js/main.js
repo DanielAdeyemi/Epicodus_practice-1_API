@@ -5,11 +5,14 @@ import '.././css/styles.css';
 
 $(document).ready(function() {
   $('#weatherLocation').click(function() {
-    const city = $('#location').val();
-    $('#location').val("");
+    // const city = $('#location').val();
+    const zip = $('#zip').val();
+    const country = $('#countryCode').val();
+    $('#location, #zip, #countryCode').val("");
 
     let request = new XMLHttpRequest();
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
+    // const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip},${country}&appid=${process.env.API_KEY}`;
     request.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         const response = JSON.parse(this.responseText);
@@ -20,7 +23,7 @@ $(document).ready(function() {
     request.send();
 
     function getElements(response) {
-      $('.showHumidity').text(`The humidity in ${city} is ${response.main.humidity}%`);
+      $('.showHumidity').text(`The humidity for ${zip} is ${response.main.humidity}%`);
       $('.showTemp').text(`The temperature in Kelvins is ${response.main.temp} degrees.`);
       $('.description').text(`The clouds are: ${response.weather[0].description}`);
     }
