@@ -15,13 +15,13 @@ $(document).ready(function() {
         const response = JSON.parse(this.responseText);
         getElements(response);
       }
-    }
+    };
     request.open("GET", url, true);
     request.send();
 
     function getElements(response) {
       $('.showHumidity').text(`The humidity in ${city} is ${response.main.humidity}%`);
-      $('.showTemp').text(`The temperature in Kelvins is ${response.main.temp} degrees.`)
+      $('.showTemp').text(`The temperature in Kelvins is ${response.main.temp} degrees.`);
     }
   });
 });
