@@ -5,14 +5,22 @@ import '.././css/styles.css';
 
 $(document).ready(function() {
   $('.btn').click(function() {
-    const city = $('#location').val();
-    const zip = $('#zip').val();
-    const country = $('#countryCode').val();
-    $('#location, #zip, #countryCode').val("");
+    const city = $("#location").val();
+    try {
+      if (city === "") {
+        throw 'blankException';
+      }
+    } catch (error) {
+      $(".showErrors").text(error);
+    }
+    const zip = $("#zip").val();
+    const country = $("#countryCode").val();
+    $("#location, #zip, #countryCode").val("");
 
     let request = new XMLHttpRequest();
     const url1 = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`;
     const url2 = `https://api.openweathermap.org/data/2.5/weather?zip=${zip},${country}&appid=${process.env.API_KEY}`;
+
     request.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
         const response = JSON.parse(this.responseText);
@@ -20,7 +28,7 @@ $(document).ready(function() {
       }
     };
 
-    request.open("GET", ($(this).attr('id') === 'weatherLocation') ? url1 : url2, true);
+    request.open("GET", $(this).attr("id") === "weatherLocation" ? url1 : url2, true);
     request.send();
 
     function getElements(response) {
