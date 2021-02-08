@@ -22,6 +22,7 @@ $(document).ready(function() {
     function getElements(response) {
       $('.showHumidity').text(`The humidity in ${city} is ${response.main.humidity}%`);
       $('.showTemp').text(`The temperature in Kelvins is ${response.main.temp} degrees.`);
+      $('.description').text(`The clouds are: ${response.weather[0].description}`);
     }
   });
 });
