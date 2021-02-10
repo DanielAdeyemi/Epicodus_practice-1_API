@@ -19,11 +19,13 @@ function getElements(response) {
     $('.showErrors').text(`There was an error processing your request: ${response.message}`);
 }
 
+async function makeApiCall(city) {
+  const response = await WeatherService.getWeather(city);
+  getElements(response);
+}
+
 $('#weatherLocation').click(function() {
   const city = $("#location").val();
   clearFields();
-  WeatherService.getWeather(city)
-    .then(function(response) {
-      getElements(response);
-    });
+  makeApiCall(city);
 });
